@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t menor/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run menor/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t menor/multi-client ./client
+  - docker build -t menor/multi-nginx ./nginx
+  - docker build -t menor multi-server ./server
+  - docker build -t menor/multi-worker ./worker
+
+  # Log in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Push images to docker hub
+  - docker push menor/multi-client
+  - docker push menor/multi-nginx
+  - docker push menor/multi-server
+  - docker push menor/multi-worker
+
+
