@@ -1,0 +1,18 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "A worker that reads and writes to a redis server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
